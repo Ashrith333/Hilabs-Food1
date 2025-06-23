@@ -1,0 +1,35 @@
+name: Run Food Order Script
+
+on:
+  schedule:
+    # Runs at 1:00 AM UTC. You can adjust the time.
+    # For example, to run at 1 AM IST (which is 7:30 PM UTC the previous day), you'd use '30 19 * * *'
+    - cron: '30 19 * * *'
+  workflow_dispatch: # Allows you to run it manually from the Actions tab
+
+jobs:
+  order-food:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install selenium
+
+    - name: Setup Chrome # This action installs a browser for Selenium to use
+      uses: browser-actions/setup-chrome@v1
+
+    - name: Run the food ordering script
+      env:
+        KHANA_USERNAME: ${{ secrets.KHANA_USERNAME }}
+        KHANA_PASSWORD: ${{ secrets.KHANA_PASSWORD }}
+      run: python order_food.py 
