@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs at 1:00 AM UTC. You can adjust the time.
     # For example, to run at 1 AM IST (which is 7:30 PM UTC the previous day), you'd use '30 19 * * *'
-    - cron: '05 22 * * *'
+    - cron: '40 3 * * *'
   workflow_dispatch: # Allows you to run it manually from the Actions tab
 
 jobs:
